@@ -11,28 +11,28 @@ import pandas as pd
 from sqlalchemy.types import VARCHAR
 import datetime
 import time
-
+ww= ts
 engine = create_engine('mysql+pymysql://root:1160329981wang@58edd9c77adb6.bj.cdb.myqcloud.com:5432/qianmancang',
                        echo=True)
 
 
 def qianfuquan(code):
-    a = ts.get_h_data(code)
+    a = ww.get_h_data(code)
     return a
 
 
 def houfuquan(code):
-    a = ts.get_h_data(code, autype='hfq')
+    a = ww.get_h_data(code, autype='hfq')
     return a
 
 
 def bufuquan(code):
-    a = ts.get_h_data(code, autype=None)
+    a = ww.get_h_data(code, autype=None)
     return a
 
 
 if __name__ == '__main__':
-    names = ts.get_today_all()['code'].values
+    names = ww.get_today_all()['code'].values
     for code in names:
         qian = qianfuquan(code)
         qian.to_sql('qianfuquan', engine, if_exists='replace')
@@ -42,4 +42,4 @@ if __name__ == '__main__':
         time.sleep(10)
         bu = bufuquan(code)
         bu.to_sql('bufuquan', engine, if_exists='replace')
-        time.sleep(20)
+        time.sleep(200)
